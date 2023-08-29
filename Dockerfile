@@ -11,13 +11,6 @@ RUN gradle wrapper
 
 RUN ./gradlew clean build
 
-# Stage 2: Run the application
-FROM krmp-d2hub-idock.9rum.cc/goorm/eclipse-temurin:17-jre
-
-WORKDIR /opt/techcampus
-
-COPY --from=build /home/gradle/project/build/libs/kakao-1.0.jar .
-
 ENV DATABASE_URL=jdbc:mariadb://mariadb/krampoline
 
 CMD ["java", "-jar", "-Dspring.profiles.active=prod", "kakao-1.0.jar"]
